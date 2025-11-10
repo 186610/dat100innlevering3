@@ -5,68 +5,90 @@ import no.hvl.dat100.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable 
+    private Innlegg[] innleggtabell;
+    private int nesteledig;
 
-	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
-	}
+    public Blogg() {
+        innleggtabell = new Innlegg[20];
+        nesteledig = 0;
+    }
 
-	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
-	}
+    public Blogg(int lengde) {
+        innleggtabell = new Innlegg[lengde];
+        nesteledig = 0;
+    }
 
-	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
-	}
-	
-	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+    public int getAntall() {
+        return nesteledig;
+    }
 
-	}
-	
-	public int finnInnlegg(Innlegg innlegg) {
+    public Innlegg[] getSamling() {
+        return innleggtabell;
 
-		throw new UnsupportedOperationException(TODO.method());
-	}
+    }
 
-	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
-	}
+    public int finnInnlegg(Innlegg innlegg) {
 
-	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
+        for (int i = 0; i < nesteledig; i++) {
+            if (innleggtabell[i].erLik(innlegg)) {
+                return i;
 
-	}
-	
-	public boolean leggTil(Innlegg innlegg) {
+            }
 
-		throw new UnsupportedOperationException(TODO.method());
-	}
-	
-	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
-	}
+        }
+        return -1;
+    }
+
+    public boolean finnes(Innlegg innlegg) {
+        return finnInnlegg(innlegg) != -1;
+    }
+
+    public boolean ledigPlass() {
+        return nesteledig < innleggtabell.length;
+
+    }
+
+    public boolean leggTil(Innlegg innlegg) {
+
+        if (!ledigPlass() || finnes(innlegg)) {
+            return false;
+        }
+        innleggtabell[nesteledig] = innlegg;
+        nesteledig++;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        Stringbuilder sb = new StringBuilder();
+        sb.append(nesteledig).append("\n");
+        for (int i = 0; i < nesteledig; i++) {
+            sb.append(innleggtabell[i].toString());
+        }
+        return sb.toString();
+    }
+}
 
 	// valgfrie oppgaver nedenfor
 	
-	public void utvid() {
-		throw new UnsupportedOperationException(TODO.method());
-	}
+//	public void utvid() {
+//		throw new UnsupportedOperationException(TODO.method());
+//	}
 	
-	public boolean leggTilUtvid(Innlegg innlegg) {
+//	public boolean leggTilUtvid(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+//		throw new UnsupportedOperationException(TODO.method());
 		
-	}
+//	}
 	
-	public boolean slett(Innlegg innlegg) {
+//	public boolean slett(Innlegg innlegg) {
 		
-		throw new UnsupportedOperationException(TODO.method());
-	}
+//		throw new UnsupportedOperationException(TODO.method());
+//	}
 	
-	public int[] search(String keyword) {
+//	public int[] search(String keyword) {
 		
-		throw new UnsupportedOperationException(TODO.method());
+//		throw new UnsupportedOperationException(TODO.method());
 
-	}
-}
+//	}
+//}
