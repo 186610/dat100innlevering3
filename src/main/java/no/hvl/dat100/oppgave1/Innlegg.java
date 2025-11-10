@@ -65,7 +65,6 @@ public abstract class Innlegg {
         return this.id == innlegg.getId();
 
     }
-
     @Override
     public String toString() {
 

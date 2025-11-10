@@ -22,19 +22,16 @@ public class Blogg {
         return nesteledig;
     }
 
+
     public Innlegg[] getSamling() {
         return innleggtabell;
-
     }
 
     public int finnInnlegg(Innlegg innlegg) {
-
         for (int i = 0; i < nesteledig; i++) {
             if (innleggtabell[i].erLik(innlegg)) {
                 return i;
-
             }
-
         }
         return -1;
     }
@@ -45,11 +42,9 @@ public class Blogg {
 
     public boolean ledigPlass() {
         return nesteledig < innleggtabell.length;
-
     }
 
     public boolean leggTil(Innlegg innlegg) {
-
         if (!ledigPlass() || finnes(innlegg)) {
             return false;
         }
@@ -57,10 +52,9 @@ public class Blogg {
         nesteledig++;
         return true;
     }
-
     @Override
     public String toString() {
-        Stringbuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append(nesteledig).append("\n");
         for (int i = 0; i < nesteledig; i++) {
             sb.append(innleggtabell[i].toString());

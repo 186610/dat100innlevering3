@@ -1,35 +1,38 @@
 package no.hvl.dat100.oppgave4;
 
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
+import no.hvl.dat100.oppgave3.Blogg;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.Path;
-import no.hvl.dat100.common.TODO;
-import no.hvl.dat100.oppgave3.*;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class SkrivBlogg {
-
-	public static boolean skriv(Blogg samling, String mappe, String filnavn) {
-
-		try {
-            Path path = (mappe == null || mappe.isBlank())
+    public static boolean skriv(Blogg samling, String mappe, String filnavn) {
+        try {
+            Path path = (mappe == null || mappe.trim().isEmpty())
                     ? Paths.get(filnavn)
-                    : Paths.get(mappe, filnavn) ;
+                    : Paths.get(mappe, filnavn);
 
             if (path.getParent() != null) {
                 Files.createDirectories(path.getParent());
             }
-            try(BufferedWriter bw = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-                bw.write(samling.toString());
 
+            // Opprett/overskriv fil med UTF-8
+            try (var bw = Files.newBufferedWriter(
+                    path,
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.WRITE)) {
+
+                bw.write(samling.toString());
             }
+
             return true;
-        } catch (IOException E) {
+        } catch (IOException e) {
             return false;
         }
-	}
+    }
 }

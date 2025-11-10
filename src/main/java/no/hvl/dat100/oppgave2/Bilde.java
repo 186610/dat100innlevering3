@@ -26,7 +26,6 @@ public class Bilde extends Tekst {
     public void setUrl(String url) {
         this.url = url;
     }
-
     @Override
     public String toString() {
         return "BILDE\n" + format() + url + "\n";
