@@ -1,26 +1,19 @@
-name: Check DAT100 Java Innlevering 3 using CI with Maven
+namname: build
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 
-      uses: actions/setup-java@v4
-      with:
-        java-version: '24'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn --batch-mode --update-snapshots compile
-    - name: Test with Maven
-      run: mvn --batch-mode --update-snapshots test 
-    
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B -q -e -DskipTests=false test
